@@ -31,6 +31,15 @@ const plan: Plan = {
   acceptsCoupon: true,
 };
 
+let errorSpy: jest.SpyInstance;
+beforeAll(() => {
+  errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+});
+
+afterAll(() => {
+  errorSpy.mockRestore();
+});
+
 function Harness() {
   const form = useForm<CardForm>({
     defaultValues: {

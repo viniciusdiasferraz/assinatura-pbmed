@@ -2,12 +2,20 @@
 
 import { Check } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { SubscriptionData } from "./components/SubscriptionData";
 import { SubscriptionStatus } from "./components/SubscriptionStatus";
 import { useSubscriptionStore } from "./store/useSubscriptionStore";
 
 export default function SuccessPage() {
+  return (
+    <Suspense fallback={<p>Carregando...</p>}>
+      <SuccessContent />
+    </Suspense>
+  );
+}
+
+function SuccessContent() {
   const searchParams = useSearchParams();
   const userId = searchParams.get("userId") ?? "1";
 

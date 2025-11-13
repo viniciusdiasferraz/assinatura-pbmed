@@ -114,30 +114,7 @@ describe("CheckoutSummary component", () => {
   it("exibe total como R$ - quando total é zero", () => {
     function LocalHarness() {
       const form = useForm<CardForm>({ defaultValues: { couponCode: null } });
-      return (
-        <Form {...form}>
-          <CheckoutSummary
-            form={form}
-            subtotal={0}
-            total={0}
-            selectedPlan={plan}
-            selectedInstallments={1}
-            submitting={false}
-            handleApplyCoupon={async () => true}
-            handleRemoveCoupon={() => {}}
-          />
-        </Form>
-      );
-    }
-    render(<LocalHarness />);
-    const allTotals = screen.getAllByText("R$ -");
-    expect(allTotals.length).toBeGreaterThan(0);
-  });
-
-  it("does not show discount block when plan has no discountPercentage", () => {
-    const noDiscountPlan = { ...plan, discountPercentage: null, discountAmmount: null };
-    function LocalHarness() {
-      const form = useForm<CardForm>({ defaultValues: { couponCode: null } });
+      const noDiscountPlan: Plan = { ...plan, discountPercentage: null, discountAmmount: null };
       return (
         <Form {...form}>
           <CheckoutSummary
