@@ -29,7 +29,14 @@ A aplicação consome um json-server que expõe endpoints para:
 npm install
 ```
 
-2) Suba o JSON Server (porta 3001)
+2) Configure variáveis de ambiente (IMPORTANTE)
+
+```bash
+# bash
+cp .env.example .env
+```
+
+3) Suba o JSON Server (porta 3001)
 ```bash
 npm run server
 ```
@@ -39,13 +46,13 @@ O servidor lê `db.json` e loga cada request (vide `server.js`). Endpoints dispo
 - GET `http://localhost:3001/subscription`
 - POST `http://localhost:3001/subscription`
 
-3) Rode a aplicação web (porta 3000)
+4) Rode a aplicação web (porta 3000)
 ```bash
 npm run dev
 ```
 Acesse `http://localhost:3000`.
 
-Observação: o cliente HTTP usa `lib/api.ts` com `baseURL: "http://localhost:3001"`. Garanta o `json-server` rodando antes de submeter a compra.
+Observação: o cliente HTTP usa `lib/api.ts` lendo `NEXT_PUBLIC_API_BASE_URL`. Garanta o `json-server` rodando quando estiver usando a URL local.
 
 ---
 
@@ -139,7 +146,7 @@ components/
   signatureCard.tsx
   ui/...(componentes de UI base)
 lib/
-  api.ts            # axios baseURL http://localhost:3001
+  api.ts            # axios usando NEXT_PUBLIC_API_BASE_URL
 server.js           # inicializa json-server + logs
 db.json             # base de dados fake
 biome.json          # config do Biome
