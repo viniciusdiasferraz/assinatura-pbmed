@@ -1,6 +1,5 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
-import { Card, CardHeader, CardTitle, CardDescription, CardAction, CardContent, CardFooter } from "../card";
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../card";
 
 describe("Card UI", () => {
   it("renders all card slots with content", () => {
@@ -23,5 +22,3 @@ describe("Card UI", () => {
     expect(screen.getByText("Rodapé")).toBeInTheDocument();
   });
 });
-
-

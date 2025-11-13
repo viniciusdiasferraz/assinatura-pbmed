@@ -1,12 +1,11 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-  InputGroupTextarea,
   InputGroupText,
+  InputGroupTextarea,
 } from "../input-group";
 
 describe("InputGroup", () => {
@@ -65,5 +64,3 @@ describe("InputGroup", () => {
     expect(screen.getByRole("button", { name: "OK" })).toHaveAttribute("data-size", "xs");
   });
 });
-
-

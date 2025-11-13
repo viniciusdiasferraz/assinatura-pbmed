@@ -56,7 +56,7 @@ function InputGroupAddon({
   className,
   align = "inline-start",
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof inputGroupAddonVariants>) {
+}: React.ComponentProps<"button"> & VariantProps<typeof inputGroupAddonVariants>) {
   const handleInteraction = () => {
     if (typeof document !== "undefined") {
       const input = document.querySelector("input");
@@ -65,10 +65,11 @@ function InputGroupAddon({
   };
 
   return (
-    <div
+    <button
       data-slot="input-group-addon"
       data-align={align}
       className={cn(inputGroupAddonVariants({ align }), className)}
+      type="button"
       onClick={handleInteraction}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {

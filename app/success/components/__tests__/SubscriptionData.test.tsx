@@ -25,5 +25,3 @@ describe("SubscriptionData", () => {
     expect(screen.getByText("R$ 200,00")).toBeInTheDocument();
   });
 });
-
-

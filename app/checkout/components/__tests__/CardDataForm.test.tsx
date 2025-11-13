@@ -1,17 +1,23 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import type { PropsWithChildren } from "react";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
+import type { CardForm } from "../../helpers/schema";
+import type { Plan } from "../../types/plan";
 import { CardDataForm } from "../CardDataForm";
 
-jest.mock("next/image", () => (props: any) => <img alt={props.alt} {...props} />);
+jest.mock("next/image", () => ({
+  __esModule: true,
+  default: (props: { alt?: string }) => <div data-testid="next-image" role="img" aria-label={props.alt ?? ""} />,
+}));
 jest.mock("@/components/ui/tooltip", () => ({
-  Tooltip: ({ children }: any) => <div>{children}</div>,
-  TooltipContent: ({ children }: any) => <div>{children}</div>,
-  TooltipProvider: ({ children }: any) => <div>{children}</div>,
-  TooltipTrigger: ({ children }: any) => <span>{children}</span>,
+  Tooltip: ({ children }: PropsWithChildren) => <div>{children}</div>,
+  TooltipContent: ({ children }: PropsWithChildren) => <div>{children}</div>,
+  TooltipProvider: ({ children }: PropsWithChildren) => <div>{children}</div>,
+  TooltipTrigger: ({ children }: PropsWithChildren) => <span>{children}</span>,
 }));
 
-const plan = {
+const plan: Plan = {
   id: "33",
   storeId: "pagamento_anual_a_vista",
   title: "Anual",
@@ -25,8 +31,17 @@ const plan = {
   acceptsCoupon: true,
 };
 
+let errorSpy: jest.SpyInstance;
+beforeAll(() => {
+  errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+});
+
+afterAll(() => {
+  errorSpy.mockRestore();
+});
+
 function Harness() {
-  const form = useForm<any>({
+  const form = useForm<CardForm>({
     defaultValues: {
       cardNumber: "",
       holder: "",
@@ -38,18 +53,12 @@ function Harness() {
   });
   return (
     <Form {...form}>
-      <CardDataForm
-        form={form as any}
-        selectedPlan={plan as any}
-        selectedInstallments={1}
-        onSelectInstallments={() => {}}
-      />
+      <CardDataForm form={form} selectedPlan={plan} selectedInstallments={1} onSelectInstallments={() => {}} />
     </Form>
   );
 }
 
 describe("CardDataForm", () => {
-
   it("applies masks on inputs (card, expiration, CVV, CPF)", () => {
     render(<Harness />);
 
@@ -70,5 +79,3 @@ describe("CardDataForm", () => {
     expect(cpfInput.value).toBe("493.028.108-36");
   });
 });
-
-
