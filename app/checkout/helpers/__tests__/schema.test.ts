@@ -29,29 +29,19 @@ describe("cardSchema", () => {
       cardCpf: "123",
       installments: 0,
       couponCode: "X",
-    } as any;
+    };
 
     const result = cardSchema.safeParse(invalid);
     expect(result.success).toBe(false);
-    const issues = (result as any).error.issues.map((i: any) => i.message);
-    expect(issues.join("|")).toEqual(
-      expect.stringContaining("Número do cartão deve conter apenas números")
-    );
-    expect(issues.join("|")).toEqual(
-      expect.stringContaining("Número do cartão deve ter entre 13 e 19 dígitos")
-    );
-    expect(issues.join("|")).toEqual(
-      expect.stringContaining("Número do cartão inválido")
-    );
-    expect(issues.join("|")).toEqual(expect.stringContaining("Campo obrigatório"));
-    expect(issues.join("|")).toEqual(
-      expect.stringContaining("Formato inválido. Use MM/AA")
-    );
-    expect(issues.join("|")).toEqual(expect.stringContaining("CVV inválido"));
-    expect(issues.join("|")).toEqual(
-      expect.stringContaining("CPF deve ter 11 números")
-    );
+    if (!result.success) {
+      const issues = result.error.issues.map((i) => i.message);
+      expect(issues.join("|")).toEqual(expect.stringContaining("Número do cartão deve conter apenas números"));
+      expect(issues.join("|")).toEqual(expect.stringContaining("Número do cartão deve ter entre 13 e 19 dígitos"));
+      expect(issues.join("|")).toEqual(expect.stringContaining("Número do cartão inválido"));
+      expect(issues.join("|")).toEqual(expect.stringContaining("Campo obrigatório"));
+      expect(issues.join("|")).toEqual(expect.stringContaining("Formato inválido. Use MM/AA"));
+      expect(issues.join("|")).toEqual(expect.stringContaining("CVV inválido"));
+      expect(issues.join("|")).toEqual(expect.stringContaining("CPF deve ter 11 números"));
+    }
   });
 });
-
-

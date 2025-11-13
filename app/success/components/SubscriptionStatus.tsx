@@ -14,15 +14,7 @@ export const SubscriptionStatus = () => {
   );
 };
 
-const Step = ({
-  icon,
-  label,
-  active = false,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  active?: boolean;
-}) => (
+const Step = ({ icon, label, active = false }: { icon: React.ReactNode; label: string; active?: boolean }) => (
   <div className="text-center w-1/3 z-10">
     <div
       className={`w-12 h-12 flex items-center justify-center mx-auto rounded-full mb-2 ${

@@ -1,12 +1,16 @@
-import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
+import type { CardForm } from "../../helpers/schema";
+import type { Plan } from "../../types/plan";
 import { CheckoutSummary } from "../CheckoutSummary";
 
-jest.mock("next/image", () => (props: any) => <img alt={props.alt} {...props} />);
+jest.mock("next/image", () => ({
+  __esModule: true,
+  default: (props: { alt?: string }) => <div data-testid="next-image" role="img" aria-label={props.alt ?? ""} />,
+}));
 
-const plan = {
+const plan: Plan = {
   id: "33",
   storeId: "pagamento_anual_a_vista",
   title: "Anual",
@@ -20,14 +24,8 @@ const plan = {
   acceptsCoupon: true,
 };
 
-function Harness({
-  onApply,
-  onRemove,
-}: {
-  onApply: (code: string) => Promise<boolean>;
-  onRemove: () => void;
-}) {
-  const form = useForm<any>({
+function Harness({ onApply, onRemove }: { onApply: (code: string) => Promise<boolean>; onRemove: () => void }) {
+  const form = useForm<CardForm>({
     defaultValues: {
       couponCode: null,
     },
@@ -35,10 +33,10 @@ function Harness({
   return (
     <Form {...form}>
       <CheckoutSummary
-        form={form as any}
+        form={form}
         subtotal={630}
         total={567}
-        selectedPlan={plan as any}
+        selectedPlan={plan}
         selectedInstallments={1}
         submitting={false}
         handleApplyCoupon={onApply}
@@ -49,7 +47,6 @@ function Harness({
 }
 
 describe("CheckoutSummary component", () => {
-
   it("renders totals and allows toggling coupon input", () => {
     render(<Harness onApply={async () => true} onRemove={() => {}} />);
 
@@ -93,17 +90,64 @@ describe("CheckoutSummary component", () => {
     expect(screen.getByText("Cupom inválido")).toBeInTheDocument();
   });
 
-  it("does not show discount block when plan has no discountPercentage", () => {
-    const noDiscountPlan = { ...plan, discountPercentage: null, discountAmmount: null };
+  it("cancela o cupom e chama handleRemoveCoupon", () => {
+    const handleRemoveCoupon = jest.fn();
+    render(<Harness onApply={async () => true} onRemove={handleRemoveCoupon} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Tem um cupom de desconto\?/i }));
+    // botão "Cancelar"
+    fireEvent.click(screen.getByRole("button", { name: /Cancelar/i }));
+    expect(handleRemoveCoupon).toHaveBeenCalledTimes(1);
+    // volta a exibir o CTA de cupom
+    expect(screen.getByRole("button", { name: /Tem um cupom de desconto\?/i })).toBeInTheDocument();
+  });
+
+  it("mostra erro 'Informe o código' quando tenta aplicar sem preencher", async () => {
+    const handleApplyCoupon = jest.fn();
+    render(<Harness onApply={handleApplyCoupon} onRemove={() => {}} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Tem um cupom de desconto\?/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Aplicar cupom/i }));
+
+    // não chama a API e mostra a mensagem de erro
+    expect(handleApplyCoupon).not.toHaveBeenCalled();
+    expect(screen.getByText("Informe o código")).toBeInTheDocument();
+  });
+
+  it("exibe total como R$ - quando total é zero", () => {
     function LocalHarness() {
-      const form = useForm<any>({ defaultValues: { couponCode: null } });
+      const form = useForm<CardForm>({ defaultValues: { couponCode: null } });
       return (
         <Form {...form}>
           <CheckoutSummary
-            form={form as any}
+            form={form}
+            subtotal={0}
+            total={0}
+            selectedPlan={plan}
+            selectedInstallments={1}
+            submitting={false}
+            handleApplyCoupon={async () => true}
+            handleRemoveCoupon={() => {}}
+          />
+        </Form>
+      );
+    }
+    render(<LocalHarness />);
+    const allTotals = screen.getAllByText("R$ -");
+    expect(allTotals.length).toBeGreaterThan(0);
+  });
+
+  it("does not show discount block when plan has no discountPercentage", () => {
+    const noDiscountPlan = { ...plan, discountPercentage: null, discountAmmount: null };
+    function LocalHarness() {
+      const form = useForm<CardForm>({ defaultValues: { couponCode: null } });
+      return (
+        <Form {...form}>
+          <CheckoutSummary
+            form={form}
             subtotal={700}
             total={700}
-            selectedPlan={noDiscountPlan as any}
+            selectedPlan={noDiscountPlan}
             selectedInstallments={1}
             submitting={false}
             handleApplyCoupon={async () => true}
@@ -119,14 +163,14 @@ describe("CheckoutSummary component", () => {
   it("does not render coupon button when plan doesn't accept coupon", () => {
     const noCouponPlan = { ...plan, acceptsCoupon: false };
     function LocalHarness() {
-      const form = useForm<any>({ defaultValues: { couponCode: null } });
+      const form = useForm<CardForm>({ defaultValues: { couponCode: null } });
       return (
         <Form {...form}>
           <CheckoutSummary
-            form={form as any}
+            form={form}
             subtotal={630}
             total={567}
-            selectedPlan={noCouponPlan as any}
+            selectedPlan={noCouponPlan}
             selectedInstallments={1}
             submitting={false}
             handleApplyCoupon={async () => true}
@@ -141,14 +185,14 @@ describe("CheckoutSummary component", () => {
 
   it("shows per-installment text when selectedInstallments > 1", () => {
     function LocalHarness() {
-      const form = useForm<any>({ defaultValues: { couponCode: null } });
+      const form = useForm<CardForm>({ defaultValues: { couponCode: null } });
       return (
         <Form {...form}>
           <CheckoutSummary
-            form={form as any}
+            form={form}
             subtotal={630}
             total={600}
-            selectedPlan={plan as any}
+            selectedPlan={plan}
             selectedInstallments={3}
             submitting={false}
             handleApplyCoupon={async () => true}
@@ -161,5 +205,3 @@ describe("CheckoutSummary component", () => {
     expect(screen.getByText("3x de R$ 200,00")).toBeInTheDocument();
   });
 });
-
-

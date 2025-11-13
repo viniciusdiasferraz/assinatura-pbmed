@@ -13,5 +13,3 @@ describe("validators (success)", () => {
     expect(getPeriodLabel("unknown")).toBe("Modalidade desconhecida*");
   });
 });
-
-
