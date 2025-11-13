@@ -95,10 +95,8 @@ describe("CheckoutSummary component", () => {
     render(<Harness onApply={async () => true} onRemove={handleRemoveCoupon} />);
 
     fireEvent.click(screen.getByRole("button", { name: /Tem um cupom de desconto\?/i }));
-    // botão "Cancelar"
     fireEvent.click(screen.getByRole("button", { name: /Cancelar/i }));
     expect(handleRemoveCoupon).toHaveBeenCalledTimes(1);
-    // volta a exibir o CTA de cupom
     expect(screen.getByRole("button", { name: /Tem um cupom de desconto\?/i })).toBeInTheDocument();
   });
 
@@ -109,7 +107,6 @@ describe("CheckoutSummary component", () => {
     fireEvent.click(screen.getByRole("button", { name: /Tem um cupom de desconto\?/i }));
     fireEvent.click(screen.getByRole("button", { name: /Aplicar cupom/i }));
 
-    // não chama a API e mostra a mensagem de erro
     expect(handleApplyCoupon).not.toHaveBeenCalled();
     expect(screen.getByText("Informe o código")).toBeInTheDocument();
   });

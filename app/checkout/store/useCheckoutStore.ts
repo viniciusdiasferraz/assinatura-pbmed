@@ -42,7 +42,6 @@ export const useCheckoutStore = create<CheckoutState>((set) => ({
   handleApplyCoupon: async (code) => {
     set({ couponError: null });
     try {
-      // Busca no JSON Server e filtra ignorando maiúsculas/minúsculas
       const res = await api.get("/coupons", { params: { code } });
       const data: Coupon[] = Array.isArray(res.data) ? res.data : [];
       const coupon = data.find((c: Coupon) => String(c.code).toLowerCase() === String(code).toLowerCase());
