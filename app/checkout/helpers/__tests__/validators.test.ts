@@ -1,4 +1,4 @@
-import { isValidCPF, isValidCardNumber } from "../validators";
+import { isValidCardNumber, isValidCPF } from "../validators";
 
 describe("validators (checkout)", () => {
   it("isValidCPF should validate correct CPFs and reject invalid ones", () => {
@@ -17,5 +17,3 @@ describe("validators (checkout)", () => {
     expect(isValidCardNumber("4111 1111 1111 1112")).toBe(false);
   });
 });
-
-

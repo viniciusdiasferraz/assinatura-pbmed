@@ -112,9 +112,9 @@ export function CardDataForm({ form, selectedPlan, selectedInstallments, onSelec
                         <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger asChild>
-                              <button type="button" className="flex items-center justify-center text-gray-400">
+                              <span className="flex items-center justify-center text-gray-400">
                                 <CircleQuestionMark className="w-4 h-4" />
-                              </button>
+                              </span>
                             </TooltipTrigger>
                             <TooltipContent side="top" className="max-w-xs text-sm">
                               <p className="text-sm font-normal">

@@ -1,4 +1,5 @@
 import { act } from "@testing-library/react";
+import type { Plan } from "../../types/plan";
 import { useCheckoutStore } from "../useCheckoutStore";
 
 jest.mock("@/lib/api", () => ({
@@ -39,7 +40,7 @@ describe("useCheckoutStore - coupons", () => {
 
     let result: boolean | null = null;
     await act(async () => {
-      result = await useCheckoutStore.getState().handleApplyCoupon("afyawB001", [] as any);
+      result = await useCheckoutStore.getState().handleApplyCoupon("afyawB001", [] as Plan[]);
     });
 
     expect(result).toBe(true);
@@ -52,7 +53,7 @@ describe("useCheckoutStore - coupons", () => {
 
     let result: boolean | null = null;
     await act(async () => {
-      result = await useCheckoutStore.getState().handleApplyCoupon("INVALIDO", [] as any);
+      result = await useCheckoutStore.getState().handleApplyCoupon("INVALIDO", [] as Plan[]);
     });
 
     expect(result).toBe(false);
@@ -64,7 +65,7 @@ describe("useCheckoutStore - coupons", () => {
 
     let result: boolean | null = null;
     await act(async () => {
-      result = await useCheckoutStore.getState().handleApplyCoupon("ANY", [] as any);
+      result = await useCheckoutStore.getState().handleApplyCoupon("ANY", [] as Plan[]);
     });
 
     expect(result).toBe(false);
@@ -78,7 +79,7 @@ describe("useCheckoutStore - coupons", () => {
 
     let result: boolean | null = null;
     await act(async () => {
-      result = await useCheckoutStore.getState().handleApplyCoupon("AFYAWB001", [] as any);
+      result = await useCheckoutStore.getState().handleApplyCoupon("AFYAWB001", [] as Plan[]);
     });
 
     expect(result).toBe(false);
@@ -91,7 +92,7 @@ describe("useCheckoutStore - coupons", () => {
     });
 
     await act(async () => {
-      await useCheckoutStore.getState().handleApplyCoupon("SEMDSC", [] as any);
+      await useCheckoutStore.getState().handleApplyCoupon("SEMDSC", [] as Plan[]);
     });
 
     expect(useCheckoutStore.getState().appliedCoupon).toEqual({ code: "SEMDSC", discount: 0 });
@@ -117,5 +118,3 @@ describe("useCheckoutStore - coupons", () => {
     expect(useCheckoutStore.getState().appliedCoupon).toBeNull();
   });
 });
-
-

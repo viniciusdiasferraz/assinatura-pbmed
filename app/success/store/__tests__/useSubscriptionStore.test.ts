@@ -12,7 +12,8 @@ const { api } = jest.requireMock("@/lib/api");
 describe("useSubscriptionStore - fetchSubscription", () => {
   beforeEach(() => {
     act(() => {
-      useSubscriptionStore.setState({
+      useSubscriptionStore.setState((state) => ({
+        ...state,
         subscription: null,
         loading: false,
         error: null,
@@ -21,26 +22,24 @@ describe("useSubscriptionStore - fetchSubscription", () => {
         cardLastFour: "—",
         installmentText: "R$ —",
         valueDisplay: "R$ —",
-      } as any);
+      }));
     });
     jest.resetAllMocks();
   });
 
   it("loads last subscription by userId when /subscriptions/:id fails", async () => {
-    (api.get as jest.Mock)
-      .mockRejectedValueOnce(new Error("not found"))
-      .mockResolvedValueOnce({
-        data: [
-          {
-            userId: 1,
-            price: 200,
-            installments: 2,
-            number: "5359 4024 3006 6179",
-            cardCpf: "49302810836",
-            period: "annually",
-          },
-        ],
-      });
+    (api.get as jest.Mock).mockRejectedValueOnce(new Error("not found")).mockResolvedValueOnce({
+      data: [
+        {
+          userId: 1,
+          price: 200,
+          installments: 2,
+          number: "5359 4024 3006 6179",
+          cardCpf: "49302810836",
+          period: "annually",
+        },
+      ],
+    });
 
     await act(async () => {
       await useSubscriptionStore.getState().fetchSubscription("1");
@@ -119,5 +118,3 @@ describe("useSubscriptionStore - fetchSubscription", () => {
     expect(st.installmentText).toBe("1x de R$ 150,00");
   });
 });
-
-

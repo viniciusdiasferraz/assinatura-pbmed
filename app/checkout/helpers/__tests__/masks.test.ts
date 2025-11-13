@@ -1,4 +1,4 @@
-import { maskCardNumber, maskCPF, maskExpirationDate, maskCVV } from "../masks";
+import { maskCardNumber, maskCPF, maskCVV, maskExpirationDate } from "../masks";
 
 describe("masks", () => {
   it("maskCardNumber should group digits into blocks of 4 and trim", () => {
@@ -25,5 +25,3 @@ describe("masks", () => {
     expect(maskCVV("12345a")).toBe("1234");
   });
 });
-
-
