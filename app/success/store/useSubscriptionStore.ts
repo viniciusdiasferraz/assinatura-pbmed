@@ -46,7 +46,6 @@ export const useSubscriptionStore = create<SubscriptionState>((set) => ({
       subscription = res.data;
     } catch {
       try {
-        // Filtra diretamente no JSON Server e pega o último registro do usuário
         const resList = await api.get("/subscription", { params: { userId } });
         const list: Subscription[] = Array.isArray(resList.data) ? resList.data : [];
         subscription = list.length > 0 ? list[list.length - 1] : null;

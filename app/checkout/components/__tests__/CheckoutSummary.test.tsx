@@ -90,10 +90,31 @@ describe("CheckoutSummary component", () => {
     expect(screen.getByText("Cupom inválido")).toBeInTheDocument();
   });
 
-  it("does not show discount block when plan has no discountPercentage", () => {
-    const noDiscountPlan = { ...plan, discountPercentage: null, discountAmmount: null };
+  it("cancela o cupom e chama handleRemoveCoupon", () => {
+    const handleRemoveCoupon = jest.fn();
+    render(<Harness onApply={async () => true} onRemove={handleRemoveCoupon} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Tem um cupom de desconto\?/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Cancelar/i }));
+    expect(handleRemoveCoupon).toHaveBeenCalledTimes(1);
+    expect(screen.getByRole("button", { name: /Tem um cupom de desconto\?/i })).toBeInTheDocument();
+  });
+
+  it("mostra erro 'Informe o código' quando tenta aplicar sem preencher", async () => {
+    const handleApplyCoupon = jest.fn();
+    render(<Harness onApply={handleApplyCoupon} onRemove={() => {}} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /Tem um cupom de desconto\?/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Aplicar cupom/i }));
+
+    expect(handleApplyCoupon).not.toHaveBeenCalled();
+    expect(screen.getByText("Informe o código")).toBeInTheDocument();
+  });
+
+  it("exibe total como R$ - quando total é zero", () => {
     function LocalHarness() {
       const form = useForm<CardForm>({ defaultValues: { couponCode: null } });
+      const noDiscountPlan: Plan = { ...plan, discountPercentage: null, discountAmmount: null };
       return (
         <Form {...form}>
           <CheckoutSummary

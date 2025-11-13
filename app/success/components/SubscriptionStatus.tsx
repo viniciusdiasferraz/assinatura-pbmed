@@ -2,8 +2,8 @@ import { Bell, DollarSign, LockKeyholeOpen } from "lucide-react";
 
 export const SubscriptionStatus = () => {
   return (
-    <div className="relative flex justify-between items-center mb-10 pt-4">
-      <div className="absolute left-[14%] right-[14%] top-10 h-6 bg-blue-100 -translate-y-1/2 mx-16">
+    <div className="relative flex justify-between items-start mb-10 pt-4 xs:items-center">
+      <div className="absolute left-[1%] right-[1%] sm:left-[3%] sm:right-[3%] md:left-[6%] md:right-[6%] lg:left-[12%] lg:right-[12%] top-10 h-6 bg-blue-100 -translate-y-1/2 mx-16">
         <div className="h-full bg-[#0051D1/10] w-1/2 rounded-full"></div>
       </div>
 
