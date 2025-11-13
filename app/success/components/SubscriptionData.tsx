@@ -17,7 +17,6 @@ export const SubscriptionData = ({
     <div className="bg-[#FAFAFA] p-8 border rounded-lg shadow-sm">
       <h3 className="text-lg font-bold mb-4">Dados da contratação</h3>
       <div className="w-full flex flex-col md:flex-row gap-8 justify-between">
-        {/* Grid de Dados */}
         <div className="grid grid-cols-2 gap-x-10 gap-y-3 md:w-2/4 text-sm">
           <div className="flex flex-col space-y-4">
             <DataRow label="CPF" value={formattedCpf} />
@@ -32,7 +31,6 @@ export const SubscriptionData = ({
           </div>
         </div>
 
-        {/* Coluna de Informações */}
         <InfoTexts />
       </div>
     </div>

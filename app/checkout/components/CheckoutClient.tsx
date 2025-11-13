@@ -36,7 +36,7 @@ export default function CheckoutClient({ plans }: { plans: Plan[] }) {
     resolver: zodResolver(cardSchema),
     defaultValues: {
       paymentMethod: "credit_card",
-      installments: 0,
+      installments: 1,
       planId: plans?.[0]?.id ?? "",
       cardCpf: "",
       cardNumber: "",
@@ -49,7 +49,7 @@ export default function CheckoutClient({ plans }: { plans: Plan[] }) {
   });
 
   const selectedPlan = plans.find((p) => String(p.id) === String(selectedPlanId)) ?? null;
-  const selectedInstallments = Number(form.watch("installments"));
+  const selectedInstallments = Number(form.watch("installments") ?? 1) || 1;
 
   const basePrice = selectedPlan?.fullPrice ?? 0;
   const planDiscount = selectedPlan?.discountPercentage
@@ -82,6 +82,7 @@ export default function CheckoutClient({ plans }: { plans: Plan[] }) {
 
     const payload = {
       storeId: selectedPlan.storeId,
+      period: selectedPlan.period,
       cardCpf: formValues.cardCpf,
       CVV: formValues.CVV,
       expirationDate: formValues.expirationDate,
@@ -107,11 +108,11 @@ export default function CheckoutClient({ plans }: { plans: Plan[] }) {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="mt-6 w-5/6 ">
-        <h3 className="mb-10 text-3xl font-semibold">Aproveite o melhor do Whitebook!</h3>
+      <div className="mt-6 w-11/12 md:w-10/12 lg:w-5/6 ">
+        <h3 className="mb-8 lg:mb-10 xl:mb-12 text-3xl font-semibold">Aproveite o melhor do Whitebook!</h3>
 
-        <div className="w-full flex gap-20">
-          <div className="flex gap-4 flex-col w-1/3">
+        <div className="w-full flex flex-col gap-8 lg:flex-row lg:gap-12 xl:gap-20">
+          <div className="flex gap-4 flex-col w-full lg:w-1/3">
             <h4 className="text-xl font-semibold mb-4">Selecione sua assinatura</h4>
             <div className="flex gap-4 flex-col">
               {plans.map((item) => {
@@ -127,7 +128,7 @@ export default function CheckoutClient({ plans }: { plans: Plan[] }) {
                     onSelect={() => {
                       setSelectedPlanId(item.id);
                       if (!isAnualLabel) {
-                        form.setValue("installments", undefined);
+                        form.setValue("installments", 1);
                       } else {
                         form.setValue("installments", 1);
                       }
@@ -155,7 +156,7 @@ export default function CheckoutClient({ plans }: { plans: Plan[] }) {
                   </div>
                 ));
               })}
-              className="w-full flex gap-20"
+              className="w-full flex flex-col gap-10 lg:flex-row lg:gap-20"
             >
               <CardDataForm
                 form={form}
@@ -164,7 +165,8 @@ export default function CheckoutClient({ plans }: { plans: Plan[] }) {
                 onSelectInstallments={(value) => form.setValue("installments", value)}
               />
 
-              <Separator orientation="vertical" className="h-full" />
+              <Separator orientation="vertical" className="hidden lg:block h-full" />
+              <Separator className="lg:hidden" />
 
               <CheckoutSummary
                 form={form}

@@ -35,10 +35,10 @@ export function CheckoutSummary({
 
   return (
     <div className="flex items-stretch justify-between gap-6 w-full">
-      <div className="w-full max-w-sm">
+      <div className="w-full lg:max-w-sm">
         <h4 className="text-xl font-semibold mb-4">Resumo</h4>
 
-        <div className="p-6 rounded-xl border border-gray-200 bg-[#FAFAFA]">
+        <div className="p-5 lg:p-6 xl:p-8 rounded-xl border border-gray-200 bg-[#FAFAFA]">
           <div className="flex items-center p-3 rounded-lg border border-gray-200 mb-6 bg-white">
             <div className="flex items-center justify-center mr-3">
               <Image src="/avatar.svg" alt="Avatar" width={40} height={40} />
@@ -215,7 +215,7 @@ export function CheckoutSummary({
         <Button
           type="submit"
           disabled={submitting}
-          className="w-full h-10 mt-6 bg-[#191847] cursor-pointer text-white font-medium text-sm rounded-full hover:bg-indigo-800 transition duration-150 shadow-md"
+          className="w-full h-10 mt-4 lg:mt-6 bg-[#191847] cursor-pointer text-white font-medium text-sm rounded-full hover:bg-indigo-800 transition duration-150 shadow-md"
         >
           {submitting ? "Concluindo..." : "Concluir assinatura"}
         </Button>

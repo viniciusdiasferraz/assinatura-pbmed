@@ -46,8 +46,10 @@ export const useSubscriptionStore = create<SubscriptionState>((set) => ({
       subscription = res.data;
     } catch {
       try {
-        const resList = await api.get("/subscription");
-        subscription = resList.data.find((s: Subscription) => String(s.userId) === String(userId));
+        // Filtra diretamente no JSON Server e pega o último registro do usuário
+        const resList = await api.get("/subscription", { params: { userId } });
+        const list: Subscription[] = Array.isArray(resList.data) ? resList.data : [];
+        subscription = list.length > 0 ? list[list.length - 1] : null;
       } catch {
         set({ error: "Não foi possível carregar a assinatura" });
       }
@@ -55,13 +57,14 @@ export const useSubscriptionStore = create<SubscriptionState>((set) => ({
 
     if (subscription) {
       const hasSubscription = !!subscription;
+      const safeInstallments = Number(subscription.installments) && Number(subscription.installments) > 0 ? Number(subscription.installments) : 1;
       const finalPrice = hasSubscription
-        ? (Number(subscription.price) / Number(subscription.installments)).toFixed(2).replace(".", ",")
+        ? (Number(subscription.price) / safeInstallments).toFixed(2).replace(".", ",")
         : "0,00";
       const totalValue = hasSubscription ? Number(subscription.price).toFixed(2).replace(".", ",") : "0,00";
       const cardLastFour = subscription.number ? String(subscription.number).slice(-4) : "—";
       const formattedCpf = subscription.cardCpf ? formatCPF(subscription.cardCpf) : "—";
-      const installmentText = hasSubscription ? `${subscription.installments}x de R$ ${finalPrice}` : "R$ —";
+      const installmentText = hasSubscription ? `${safeInstallments}x de R$ ${finalPrice}` : "R$ —";
       const modalidade = hasSubscription ? getPeriodLabel(subscription.period) : "—";
       const valueDisplay = hasSubscription ? `R$ ${totalValue}` : "R$ —";
 
