@@ -141,6 +141,50 @@
       "userId": 1,
       "method": "credit_card",
       "price": 630
+    },
+    {
+      "id": "2c08",
+      "storeId": "pagamento_mensal",
+      "cardCpf": "49302810836",
+      "CVV": "2122",
+      "expirationDate": "11/11",
+      "holder": "111111111111111111111111111111111111",
+      "number": "5359 4024 3006 6179",
+      "installments": 1,
+      "couponCode": null,
+      "userId": 1,
+      "method": "credit_card",
+      "price": 60
+    },
+    {
+      "id": "6388",
+      "storeId": "pagamento_anual_a_vista",
+      "period": "annually",
+      "cardCpf": "49302810836",
+      "CVV": "1111",
+      "expirationDate": "11/11",
+      "holder": "Teste teste teste ",
+      "number": "5359 4024 3006 6179",
+      "installments": 1,
+      "couponCode": "AFYAWB001",
+      "userId": 1,
+      "method": "credit_card",
+      "price": 567
+    },
+    {
+      "id": "2350",
+      "storeId": "pagamento_anual_a_vista",
+      "period": "annually",
+      "cardCpf": "49302810836",
+      "CVV": "1111",
+      "expirationDate": "11/11",
+      "holder": "aaaa",
+      "number": "5359 4024 3006 6179",
+      "installments": 3,
+      "couponCode": "AFYAWB001",
+      "userId": 1,
+      "method": "credit_card",
+      "price": 567
     }
   ]
 }

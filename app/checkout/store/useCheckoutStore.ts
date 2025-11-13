@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { api } from "@/lib/api";
 import type { Plan } from "../types/plan";
 
 type Coupon = {
@@ -41,8 +42,8 @@ export const useCheckoutStore = create<CheckoutState>((set) => ({
   handleApplyCoupon: async (code) => {
     set({ couponError: null });
     try {
-      const res = await fetch("/api/coupons");
-      const data = await res.json();
+      const res = await api.get("/coupons", { params: { code } });
+      const data: Coupon[] = Array.isArray(res.data) ? res.data : [];
       const coupon = data.find((c: Coupon) => String(c.code).toLowerCase() === String(code).toLowerCase());
       if (!coupon) {
         set({ appliedCoupon: null });

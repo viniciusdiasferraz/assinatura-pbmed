@@ -66,10 +66,10 @@ function InputGroupAddon({
 
   return (
     <button
-      type="button"
       data-slot="input-group-addon"
       data-align={align}
       className={cn(inputGroupAddonVariants({ align }), className)}
+      type="button"
       onClick={handleInteraction}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {

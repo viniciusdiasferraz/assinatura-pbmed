@@ -22,7 +22,7 @@ export default function SuccessPage() {
 
   return (
     <main className="min-h-screen flex flex-col items-center">
-      <div className="w-full px-12">
+      <div className="w-full px-4 md:px-12">
         {/* Banner */}
         <div className="flex items-center justify-between p-4 bg-[#0051D1] text-white rounded-t-lg mt-10 h-22">
           <div className="flex items-center">

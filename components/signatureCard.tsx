@@ -20,7 +20,7 @@ export function SignatureCard({ infos, selectedId, onSelect }: PlanProps) {
 
   return (
     <Card
-      className={`relative w-full cursor-pointer transition-all border-2 gap-0 py-3 ${
+      className={`relative w-full cursor-pointer transition-all border-2 gap-0 py-2 lg:py-3 ${
         isSelected ? "border-[#0051D1] bg-blue-50" : "border-gray-200"
       }`}
       onClick={handleSelect}

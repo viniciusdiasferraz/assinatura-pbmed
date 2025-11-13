@@ -1,8 +1,7 @@
 export function maskCardNumber(value: string) {
-  return value
-    .replace(/\D/g, "")
-    .replace(/(.{4})/g, "$1 ")
-    .trim();
+  const numbersOnly = value.replace(/\D/g, "");
+  const limited = numbersOnly.slice(0, 19);
+  return limited.replace(/(.{4})/g, "$1 ").trim();
 }
 
 export function maskCPF(value: string) {

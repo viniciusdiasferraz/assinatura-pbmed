@@ -25,7 +25,7 @@ export function CardDataForm({ form, selectedPlan, selectedInstallments, onSelec
     <div className="w-full">
       <h4 className="text-xl font-semibold mb-4">Dados do cartão</h4>
 
-      <Card className="py-0 p-6 space-y-5 gap-0 bg-[#FAFAFA]">
+      <Card className="p-5 lg:p-6 xl:p-8 space-y-4 lg:space-y-5 gap-0 bg-[#FAFAFA]">
         <AcceptedBrands />
 
         <FormField
@@ -65,7 +65,7 @@ export function CardDataForm({ form, selectedPlan, selectedInstallments, onSelec
           )}
         />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="expirationDate"
@@ -112,9 +112,9 @@ export function CardDataForm({ form, selectedPlan, selectedInstallments, onSelec
                         <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger asChild>
-                              <button type="button" className="flex items-center justify-center text-gray-400">
+                              <span className="flex items-center justify-center text-gray-400">
                                 <CircleQuestionMark className="w-4 h-4" />
-                              </button>
+                              </span>
                             </TooltipTrigger>
                             <TooltipContent side="top" className="max-w-xs text-sm">
                               <p className="text-sm font-normal">
