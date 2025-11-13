@@ -107,8 +107,8 @@ export default function CheckoutClient({ plans }: { plans: Plan[] }) {
   }
 
   return (
-    <div className="flex flex-col items-center w-full">
-      <div className="mt-6 w-11/12 md:w-10/12 lg:w-5/6 ">
+    <div className="flex flex-col items-center w-full overflow-x-hidden">
+      <div className="mt-6 w-11/12 md:w-10/12 lg:w-5/6 max-w-screen-xl pb-10 lg:pb-12">
         <h3 className="mb-8 lg:mb-10 xl:mb-12 text-3xl font-semibold">Aproveite o melhor do Whitebook!</h3>
 
         <div className="w-full flex flex-col gap-8 lg:flex-row lg:gap-12 xl:gap-20">
