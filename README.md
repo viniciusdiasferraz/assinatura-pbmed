@@ -165,3 +165,9 @@ biome.json          # config do Biome
   `https://json-server-pbmed.onrender.com/`
 
 - Importante: nos planos grátis do Render, a API entra em standby após ~15 minutos sem uso. Ao “acordar”, a primeira requisição pode demorar ~20–30s. Isso é esperado.
+
+Dica (dados para testes)
+- Para preencher CPF, número do cartão e nome válidos em ambiente de testes, use o 4Devs:
+  - CPF: https://www.4devs.com.br/gerador_de_cpf
+  - Cartão de crédito: https://www.4devs.com.br/gerador_de_cartao_de_credito
+  - Nome: https://www.4devs.com.br/gerador_de_pessoas
