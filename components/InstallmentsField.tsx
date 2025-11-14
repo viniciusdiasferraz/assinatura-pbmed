@@ -41,13 +41,18 @@ export default function InstallmentsField({
       name={name}
       render={() => (
         <FormItem className="gap-0">
-          <FormLabel className="text-sm font-normal">Parcelas</FormLabel>
+          <FormLabel suppressHydrationWarning className="text-sm font-normal">
+            Parcelas
+          </FormLabel>
 
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
               <button
                 type="button"
                 disabled={disabled}
+                id="installments-trigger"
+                aria-labelledby="installments-label"
+                aria-controls="installments-sheet"
                 className="flex items-center justify-between w-full border-0 border-b border-gray-300 rounded-none focus-visible:ring-0 focus:border-blue-600 p-0 py-2 text-left"
               >
                 <span className="text-base text-gray-800">
@@ -63,7 +68,11 @@ export default function InstallmentsField({
               </button>
             </SheetTrigger>
 
-            <SheetContent side="right" className="w-full max-w-sm sm:max-w-md p-0 rounded-s-2xl flex flex-col h-full">
+            <SheetContent
+              id="installments-sheet"
+              side="right"
+              className="w-full max-w-sm sm:max-w-md p-0 rounded-s-2xl flex flex-col h-full"
+            >
               <SheetHeader className="p-6 pb-1">
                 <SheetTitle className="text-xl font-bold">Número de Parcelas</SheetTitle>
                 <div className="absolute right-4 top-4"></div>
