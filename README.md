@@ -151,3 +151,13 @@ server.js           # inicializa json-server + logs
 db.json             # base de dados fake
 biome.json          # config do Biome
 ```
+
+---
+
+## Produção (Vercel) — endpoint público da API
+
+- A Vercel não consegue acessar `localhost:3001` em produção. Para isso, foi feito o deploy do `json-server` no Render e a URL pública é:
+  
+  `https://json-server-pbmed.onrender.com/`
+
+- Importante: nos planos grátis do Render, a API entra em standby após ~15 minutos sem uso. Ao “acordar”, a primeira requisição pode demorar ~20–30s. Isso é esperado.
