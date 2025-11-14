@@ -38,7 +38,7 @@ export const SubscriptionData = ({
 };
 
 const DataRow = ({ label, value }: { label: string; value: string }) => (
-  <div className="flex justify-between">
+  <div className="flex justify-between flex-col lg:flex-row">
     <span className="text-gray-500">{label}</span>
     <span className="font-medium">{value}</span>
   </div>
