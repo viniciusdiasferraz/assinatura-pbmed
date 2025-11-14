@@ -143,9 +143,11 @@ export default function CheckoutClient({ plans }: { plans: Plan[] }) {
             <form
               onSubmit={form.handleSubmit(onSubmit, () => {
                 toast.custom((t) => (
-                  <div className="flex items-center gap-4 p-4 bg-[#FFF2F0] text-[#A92A14] rounded-xl whitespace-nowrap">
-                    <Image src="/shape.svg" alt="Warning Icon" width={16} height={16} />
-                    <p className="text-sm font-medium">Preencha todos os campos obrigatórios para continuar</p>
+                  <div className="flex items-center justify-between gap-4 p-4 bg-[#FFF2F0] text-[#A92A14] rounded-xl whitespace-nowrap">
+                    <div className="flex items-center gap-2">
+                      <Image src="/shape.svg" alt="Warning Icon" width={16} height={16} />
+                      <p className="text-sm font-medium sm:">Preencha todos os campos obrigatórios para continuar</p>
+                    </div>
                     <button
                       type="button"
                       onClick={() => toast.dismiss(t)}
