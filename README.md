@@ -24,6 +24,10 @@ A aplicação consome um json-server que expõe endpoints para:
 
 ## Como rodar
 
+### Pré-requisitos
+
+- Node.js 20 ou superior (recomendado: v20.x)
+
 1) Instale as dependências
 ```bash
 npm install
