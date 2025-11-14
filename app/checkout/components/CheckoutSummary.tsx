@@ -95,7 +95,9 @@ export function CheckoutSummary({
                       const hasError = !!form.formState.errors.couponCode;
                       return (
                         <FormItem className="gap-2">
-                          <FormLabel className="text-sm font-medium">Preencha o código</FormLabel>
+                          <FormLabel className="text-sm font-medium" htmlFor="coupon-code">
+                            Preencha o código
+                          </FormLabel>
                           <p className="text-sm font-normal text-muted-foreground">
                             Limitado a um cupom por contratação
                           </p>
@@ -104,6 +106,8 @@ export function CheckoutSummary({
                             <div className="flex flex-col gap-4">
                               <Input
                                 {...field}
+                                id="coupon-code"
+                                aria-describedby="coupon-code-msg"
                                 value={field.value ?? ""}
                                 placeholder="Digite seu cupom"
                                 className={`flex-1 placeholder:text-base placeholder:text-[#B0B0B1] border-0 border-b ${
@@ -185,7 +189,7 @@ export function CheckoutSummary({
                               </div>
                             </div>
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage id="coupon-code-msg" />
                         </FormItem>
                       );
                     }}

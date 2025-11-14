@@ -33,16 +33,20 @@ export function CardDataForm({ form, selectedPlan, selectedInstallments, onSelec
           name="cardNumber"
           render={({ field }) => (
             <FormItem className="gap-0">
-              <FormLabel className="text-sm font-normal">Número do cartão</FormLabel>
+              <FormLabel className="text-sm font-normal" htmlFor="card-number">
+                Número do cartão
+              </FormLabel>
               <FormControl>
                 <Input
                   {...field}
+                  id="card-number"
+                  aria-describedby="card-number-msg"
                   onChange={(e) => field.onChange(maskCardNumber(e.target.value))}
                   placeholder="0000 0000 0000 0000"
                   className="placeholder:text-base placeholder:text-[#B0B0B1] border-0 border-b border-gray-300 rounded-none focus-visible:ring-0 focus:border-blue-600 p-0"
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage id="card-number-msg" />
             </FormItem>
           )}
         />
@@ -52,15 +56,19 @@ export function CardDataForm({ form, selectedPlan, selectedInstallments, onSelec
           name="holder"
           render={({ field }) => (
             <FormItem className="gap-0">
-              <FormLabel className="text-sm font-normal">Nome impresso no cartão</FormLabel>
+              <FormLabel className="text-sm font-normal" htmlFor="card-holder">
+                Nome impresso no cartão
+              </FormLabel>
               <FormControl>
                 <Input
                   {...field}
+                  id="card-holder"
+                  aria-describedby="card-holder-msg"
                   placeholder="Preencha igual ao cartão"
                   className="placeholder:text-base placeholder:text-[#B0B0B1] border-0 border-b border-gray-300 rounded-none focus-visible:ring-0 focus:border-blue-600 p-0"
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage id="card-holder-msg" />
             </FormItem>
           )}
         />
@@ -71,16 +79,20 @@ export function CardDataForm({ form, selectedPlan, selectedInstallments, onSelec
             name="expirationDate"
             render={({ field }) => (
               <FormItem className="gap-0">
-                <FormLabel className="text-sm font-normal">Validade</FormLabel>
+                <FormLabel className="text-sm font-normal" htmlFor="card-exp">
+                  Validade
+                </FormLabel>
                 <FormControl>
                   <Input
                     {...field}
+                    id="card-exp"
+                    aria-describedby="card-exp-msg"
                     onChange={(e) => field.onChange(maskExpirationDate(e.target.value))}
                     placeholder="MM/AA"
                     className="placeholder:text-base placeholder:text-[#B0B0B1] border-0 border-b border-gray-300 rounded-none focus-visible:ring-0 focus:border-blue-600 p-0"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage id="card-exp-msg" />
               </FormItem>
             )}
           />
@@ -92,16 +104,21 @@ export function CardDataForm({ form, selectedPlan, selectedInstallments, onSelec
               const hasError = !!form.formState.errors.CVV;
               return (
                 <FormItem className="gap-0">
-                  <FormLabel className="text-sm font-normal flex items-center gap-1">Código de segurança</FormLabel>
+                  <FormLabel className="text-sm font-normal flex items-center gap-1" htmlFor="card-cvv">
+                    Código de segurança
+                  </FormLabel>
 
                   <FormControl>
                     <InputGroup
+                      suppressHydrationWarning
                       className={`border-0 border-b rounded-none p-0 bg-transparent ${
                         hasError ? "border-red-500" : "border-gray-300"
                       }`}
                     >
                       <Input
                         {...field}
+                        id="card-cvv"
+                        aria-describedby="card-cvv-msg"
                         onChange={(e) => field.onChange(maskCVV(e.target.value))}
                         placeholder="000"
                         className={`placeholder:text-base placeholder:text-[#B0B0B1] border-0 rounded-none p-0 bg-transparent focus-visible:ring-0 ${
@@ -128,7 +145,7 @@ export function CardDataForm({ form, selectedPlan, selectedInstallments, onSelec
                     </InputGroup>
                   </FormControl>
 
-                  <FormMessage />
+                  <FormMessage id="card-cvv-msg" />
                 </FormItem>
               );
             }}
@@ -140,16 +157,20 @@ export function CardDataForm({ form, selectedPlan, selectedInstallments, onSelec
           name="cardCpf"
           render={({ field }) => (
             <FormItem className="gap-0">
-              <FormLabel className="text-sm font-normal">CPF do portador do cartão</FormLabel>
+              <FormLabel className="text-sm font-normal" htmlFor="card-cpf">
+                CPF do portador do cartão
+              </FormLabel>
               <FormControl>
                 <Input
                   {...field}
+                  id="card-cpf"
+                  aria-describedby="card-cpf-msg"
                   onChange={(e) => field.onChange(maskCPF(e.target.value))}
                   placeholder="Preencha o CPF do portador"
                   className="placeholder:text-base placeholder:text-[#B0B0B1] border-0 border-b border-gray-300 rounded-none focus-visible:ring-0 focus:border-blue-600 p-0"
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage id="card-cpf-msg" />
             </FormItem>
           )}
         />

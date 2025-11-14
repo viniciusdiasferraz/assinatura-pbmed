@@ -33,13 +33,13 @@ export function SignatureCard({ infos, selectedId, onSelect }: PlanProps) {
           <h4 className="text-sm font-semibold">Melhor oferta</h4>
         </Toggle>
       )}
-      <div className="w-full flex justify-end px-4">
+      <div className="w-full flex items-center justify-end px-4">
         <div
-          className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-colors ${
+          className={`relative w-4 h-4 rounded-full border-2 shrink-0 transition-colors ${
             isSelected ? "border-[#0051D1] bg-[#0051D1]" : "border-gray-400"
           }`}
         >
-          {isSelected && <div className="w-2.5 h-2.5 bg-white rounded-full"></div>}
+          {isSelected && <div className="absolute inset-0 m-auto w-2 h-2 bg-white rounded-full" />}
         </div>
       </div>
 

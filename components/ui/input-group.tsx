@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 function InputGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
+      suppressHydrationWarning
       data-slot="input-group"
       className={cn(
         "group/input-group border-input dark:bg-input/30 relative flex w-full items-center rounded-md border shadow-xs transition-[color,box-shadow] outline-none",
